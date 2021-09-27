@@ -1,0 +1,28 @@
+galaxy_info:
+  role_name: "motd"
+  namespace: "claranet"
+  description: "Install and configure dynamic MOTD"
+  author: "Claranet"
+  company: "Claranet France"
+
+  license: "MPL2"
+
+  min_ansible_version: 2.9
+
+  galaxy_tags: ['claranet', 'motd', 'system', 'dynmotd', 'dynamic']
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Amazon
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+dependencies: []

@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: claranet.motd
+      motd_banner_template: null
+
+  pre_tasks:
+    - name: "Update APT cache"
+      apt:
+        update_cache: true
+      when:
+        - ansible_pkg_mgr == "apt"
+
+    - name: Install sshd
+      package:
+        name: openssh-server

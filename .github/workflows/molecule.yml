@@ -1,0 +1,50 @@
+---
+name: Ansible Molecule
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    tags_ignore:
+      - '*'
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule
+        uses: robertdebock/molecule-action@2.6.17
+        with:
+          command: lint
+
+  test:
+    needs:
+      - lint
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - image: "amazonlinux"
+            tag: "latest"
+          - image: "centos"
+            tag: "8"
+          - image: "debian"
+            tag: "11"
+          - image: "debian"
+            tag: "10"
+          - image: "ubuntu"
+            tag: "20.04"
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - name: molecule
+        uses: robertdebock/molecule-action@2.6.17
+        with:
+          image: ${{ matrix.config.image }}
+          tag: ${{ matrix.config.tag }}

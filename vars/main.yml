@@ -1,0 +1,7 @@
+---
+_motd_sshd_config_file_path: /etc/ssh/sshd_config
+_motd_pam_login_file_path: /etc/pam.d/login
+_motd_pam_sshd_file_path: /etc/pam.d/sshd
+_motd_banner_file_path: /etc/banner
+_motd_banner_state: "{{ 'present' if motd_banner_template else 'absent' }}"
+_motd_file_path: /usr/local/bin/dynmotd

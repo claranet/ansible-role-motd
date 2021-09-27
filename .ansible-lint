@@ -1,0 +1,74 @@
+---
+exclude_paths:
+  - molecule/
+  - .pre-commit-config.yaml
+
+parseable: true
+
+use_default_rules: true
+
+enable_list:
+  command-shell:  # Specific to use of command and shell modules
+    - command-instead-of-module
+    - command-instead-of-shell
+    - deprecated-command-syntax
+    - inline-env-var
+    - no-changed-when
+    - risky-shell-pipe
+  core:  # Related to internal implementation of the linter
+    - internal-error
+    - load-failure
+    - parser-error
+    - syntax-check
+  deprecations:  # Indicate use of features that are removed from Ansible
+    - deprecated-bare-vars
+    - deprecated-command-syntax
+    - deprecated-local-action
+    - deprecated-module
+    - no-jinja-when
+    - role-name
+  formatting:  # Related to code-style
+    - no-jinja-nesting
+    - no-tabs
+    - playbook-extension
+    - risky-octal
+    - var-spacing
+    - yaml
+  idempotency:  # Possible indication that consequent runs would produce different results
+    - git-latest
+    - hg-latest
+    - no-changed-when
+    - package-latest
+  idiom:  # Anti-pattern detected, likely to cause undesired behavior
+    - command-instead-of-module
+    - command-instead-of-shell
+    - empty-string-compare
+    - inline-env-var
+    - literal-compare
+    - no-handler
+    - no-loop-var-prefix
+    - no-relative-paths
+    - unnamed-task
+    - var-naming
+  metadata:  # Invalid metadata, likely related to galaxy, collections or roles
+    - meta-incorrect
+    - meta-no-tags
+    - meta-video-links
+    - role-name
+  unpredictability:
+    - ignore-errors
+    - partial-become
+  unskippable:
+    - syntax-check
+  yaml:  # External linter which will also produce its own rule codes.
+    - yaml
+
+warn_list:
+  - experimental  # all rules tagged as experimental
+  - meta-no-info  # meta/main.yml should contain relevant info
+  - risky-file-permissions  # File permissions unset or incorrect
+
+skip_list:
+  - role-name  # BUG
+
+verbosity: 1

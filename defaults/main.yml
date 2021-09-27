@@ -1,0 +1,4 @@
+---
+motd_disable_default_motd: true
+motd_banner_template: etc/banner
+motd_template: usr/local/bin/dynmotd
