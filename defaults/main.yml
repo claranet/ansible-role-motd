@@ -1,7 +1,7 @@
 ---
 motd_disable_default_motd: true
 motd_banner_template: https://raw.githubusercontent.com/claranet/motd/master/banner
-motd_template: https://raw.githubusercontent.com/claranet/motd/master/motd
+motd_template: https://raw.githubusercontent.com/claranet/motd/master/dynmotd
 motd_banner_template_prepend: ""
 motd_banner_template_append: ""
 motd_template_prepend: ""
