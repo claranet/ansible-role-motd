@@ -24,7 +24,7 @@
 
 - name: Apply template {{ motd_banner_template }} on {{ _motd_banner_file_path }}
   copy:
-    content: "{{ motd_banner_template_prepend|default('') + _motd_banner_template_content + motd_banner_template_append|default('') }}"
+    content: "{{ motd_banner_template_prepend + _motd_banner_template_content + motd_banner_template_append }}"
     dest: "{{ _motd_banner_file_path }}"
     owner: root
     group: root
@@ -41,7 +41,7 @@
 
 - name: Apply template {{ motd_template }} on {{ _motd_file_path }}
   copy:
-    content: "{{ motd_template_prepend|default('') + _motd_template_content + motd_template_append|default('') }}"
+    content: "{{ motd_template_prepend + _motd_template_content + motd_template_append }}"
     dest: "{{ _motd_file_path }}"
     owner: root
     group: root
