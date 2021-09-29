@@ -1,4 +1,17 @@
 ---
 motd_disable_default_motd: true
-motd_banner_template: etc/banner
-motd_template: usr/local/bin/dynmotd
+motd_banner_template: https://raw.githubusercontent.com/claranet/motd/master/banner
+motd_template: https://raw.githubusercontent.com/claranet/motd/master/motd
+motd_banner_template_prepend: ""
+motd_banner_template_append: ""
+motd_template_prepend: ""
+motd_template_append: |
+
+  echo -e "\e[0;39mAnsible:
+    Last deployment\e[2m···\e[0m: {{ ansible_date_time.iso8601_micro }}
+  "
+
+motd_template_username: ""
+motd_template_password: ""
+motd_banner_template_username: "{{ motd_template_username }}"
+motd_banner_template_password: "{{ motd_template_password }}"

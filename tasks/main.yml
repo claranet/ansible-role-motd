@@ -23,8 +23,8 @@
   when: motd_disable_default_motd|bool
 
 - name: Apply template {{ motd_banner_template }} on {{ _motd_banner_file_path }}
-  template:
-    src: "{{ motd_banner_template }}"
+  copy:
+    content: "{{ motd_banner_template_prepend|default('') + _motd_banner_template_content + motd_banner_template_append|default('') }}"
     dest: "{{ _motd_banner_file_path }}"
     owner: root
     group: root
@@ -40,8 +40,8 @@
   notify: Restart sshd
 
 - name: Apply template {{ motd_template }} on {{ _motd_file_path }}
-  template:
-    src: "{{ motd_template }}"
+  copy:
+    content: "{{ motd_template_prepend|default('') + _motd_template_content + motd_template_append|default('') }}"
     dest: "{{ _motd_file_path }}"
     owner: root
     group: root

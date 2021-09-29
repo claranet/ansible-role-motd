@@ -11,6 +11,8 @@
 
 Install and configure dynamic MOTD and SSH banner
 
+This role uses [https://github.com/claranet/motd](https://github.com/claranet/motd) by default to get the banner and the MOTD
+
 ```
 System info:
   Hostname·········: claranet_motd_ubuntu-20.04
@@ -44,11 +46,19 @@ ansible-galaxy install claranet.motd
 
 ## :gear: Role variables
 
-Variable                  | Default value         | Description
---------------------------|-----------------------|----------------------------------------
-motd_disable_default_motd | true                  | Disable system default MOTD (/etc/motd)
-motd_banner_template      | etc/banner            | SSH banner template
-motd_template             | usr/local/bin/dynmotd | Dynmaic MOTD template
+Variable                     | Default value                                                 | Description
+-----------------------------|---------------------------------------------------------------|----------------------------------------------------------------
+motd_disable_default_motd    | true                                                          | Disable system default MOTD (/etc/motd)
+motd_banner_template         | https://raw.githubusercontent.com/claranet/motd/master/banner | SSH banner template<br>Can be a URL, a local template or `null`
+motd_banner_template_prepend | ""                                                            | Prepend raw content to `motd_banner_template`
+motd_banner_template_append  | ""                                                            | Append raw content to `motd_banner_template`
+motd_banner_template_username| {{ motd_template_username }}                                  | Used when `motd_banner_template` is an URL
+motd_banner_template_password| {{ motd_template_password }}                                  | Used when `motd_banner_template` is an URL
+motd_template                | https://raw.githubusercontent.com/claranet/motd/master/motd   | Dynmaic MOTD template<br>Can be a URL or a local template
+motd_template_prepend        | ""                                                            | Prepend raw content to `motd_template`
+motd_template_append         | See [defaults/main.yml](defaults/main.yml)                    | Append raw content to `motd_template`
+motd_template_username       | ""                                                            | Used when `motd_template` is an URL
+motd_template_password       | ""                                                            | Used when `motd_template` is an URL
 
 ## :pencil2: Example Playbook
 
@@ -56,7 +66,8 @@ motd_template             | usr/local/bin/dynmotd | Dynmaic MOTD template
 ---
 - hosts: all
   roles:
-    - claranet.motd
+    - role: claranet.motd
+      motd_template: "{{ playbook_dir }}/templates/dynmotd.j2"
 ```
 
 ## :closed_lock_with_key: [Hardening](HARDENING.md)
