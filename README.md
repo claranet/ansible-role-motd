@@ -46,19 +46,19 @@ ansible-galaxy install claranet.motd
 
 ## :gear: Role variables
 
-Variable                     | Default value                                                 | Description
------------------------------|---------------------------------------------------------------|----------------------------------------------------------------
-motd_disable_default_motd    | true                                                          | Disable system default MOTD (/etc/motd)
-motd_banner_template         | https://raw.githubusercontent.com/claranet/motd/master/banner | SSH banner template<br>Can be a URL, a local template or `null`
-motd_banner_template_prepend | ""                                                            | Prepend raw content to `motd_banner_template`
-motd_banner_template_append  | ""                                                            | Append raw content to `motd_banner_template`
-motd_banner_template_username| {{ motd_template_username }}                                  | Used when `motd_banner_template` is an URL
-motd_banner_template_password| {{ motd_template_password }}                                  | Used when `motd_banner_template` is an URL
-motd_template                | https://raw.githubusercontent.com/claranet/motd/master/motd   | Dynmaic MOTD template<br>Can be a URL or a local template
-motd_template_prepend        | ""                                                            | Prepend raw content to `motd_template`
-motd_template_append         | See [defaults/main.yml](defaults/main.yml)                    | Append raw content to `motd_template`
-motd_template_username       | ""                                                            | Used when `motd_template` is an URL
-motd_template_password       | ""                                                            | Used when `motd_template` is an URL
+Variable                     | Default value                                                          | Description
+-----------------------------|------------------------------------------------------------------------|----------------------------------------------------------------
+motd_disable_default_motd    | true                                                                   | Disable system default MOTD (/etc/motd)
+motd_banner_template         | https://raw.githubusercontent.com/claranet/motd/master/banner          | SSH banner template<br>Can be a URL, a local template or `null`
+motd_banner_template_prepend | ""                                                                     | Prepend raw content to `motd_banner_template`
+motd_banner_template_append  | ""                                                                     | Append raw content to `motd_banner_template`
+motd_banner_template_username| {{ motd_template_username }}                                           | Used when `motd_banner_template` is an URL
+motd_banner_template_password| {{ motd_template_password }}                                           | Used when `motd_banner_template` is an URL
+motd_template                | https://raw.githubusercontent.com/claranet/motd/master/scripts/00-basic| Dynmaic MOTD template<br>Can be a URL or a local template
+motd_template_prepend        | ""                                                                     | Prepend raw content to `motd_template`
+motd_template_append         | See [defaults/main.yml](defaults/main.yml)                             | Append raw content to `motd_template`
+motd_template_username       | ""                                                                     | Used when `motd_template` is an URL
+motd_template_password       | ""                                                                     | Used when `motd_template` is an URL
 
 ## :pencil2: Example Playbook
 
