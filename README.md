@@ -18,7 +18,6 @@ System info:
   Hostname·········: claranet_motd_ubuntu-20.04
   Distro···········: Ubuntu 20.04.3 LTS
   Kernel···········: Linux 5.10.47-linuxkit
-  Updates available: 6 (2 security)
   Uptime···········: up 2 days, 23 hours, 18 minutes
   Load·············: 1.33 (1m), 0.43 (5m), 0.20 (15m)
   Processes········: 13 (root), 3 (user), 16 (total)
