@@ -1,0 +1,19 @@
+---
+- name: configure_motd | Apply template {{ motd_template }} on {{ _motd_file_path }}
+  copy:
+    content: "{{ motd_template_prepend + _motd_template_content + motd_template_append }}"
+    dest: "{{ _motd_file_path }}"
+    owner: root
+    group: root
+    mode: '0755'
+  tags:
+    - molecule-idempotence-notest
+
+- name: configure_motd | Add pam_exec {{ _motd_file_path }} in pam
+  lineinfile:
+    path: "{{ item }}"
+    line: session optional pam_exec.so type=open_session stdout {{ _motd_file_path }}
+  loop:
+    - "{{ _motd_pam_login_file_path }}"
+    - "{{ _motd_pam_sshd_file_path }}"
+...

@@ -1,0 +1,22 @@
+---
+- name: disable_default_motd | Get stats of {{ _motd_sshd_config_file_path }}
+  stat:
+    path: "{{ _motd_sshd_config_file_path }}"
+  register: _motd_sshd_config_file_stat
+
+- name: disable_default_motd | Ensure PrintMotd is set to "no" in {{ _motd_sshd_config_file_path }}
+  lineinfile:
+    path: "{{ _motd_sshd_config_file_path }}"
+    regexp: "^PrintMotd "
+    line: PrintMotd no
+  when: _motd_sshd_config_file_stat.stat.exists
+
+- name: disable_default_motd | Comment out pam_motd in pam
+  replace:
+    path: "{{ item }}"
+    regexp: '^(session\s+optional\s+pam_motd.so\s+.*)'
+    replace: '# \1'
+  loop:
+    - "{{ _motd_pam_login_file_path }}"
+    - "{{ _motd_pam_sshd_file_path }}"
+...

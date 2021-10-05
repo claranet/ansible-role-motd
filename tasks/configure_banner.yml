@@ -1,0 +1,18 @@
+---
+- name: configure_banner | Apply template {{ motd_banner_template }} on {{ _motd_banner_file_path }}
+  copy:
+    content: "{{ motd_banner_template_prepend + _motd_banner_template_content + motd_banner_template_append }}"
+    dest: "{{ _motd_banner_file_path }}"
+    owner: root
+    group: root
+    mode: '0644'
+  when: motd_banner_template != None and motd_banner_template|length>0
+
+- name: configure_banner | Ensure line "Banner {{ _motd_banner_file_path }}" is {{ _motd_banner_state }} in {{ _motd_sshd_config_file_path }}
+  lineinfile:
+    path: "{{ _motd_sshd_config_file_path }}"
+    regexp: "^(#?)Banner "
+    line: Banner {{ _motd_banner_file_path }}
+    state: "{{ _motd_banner_state }}"
+  notify: Restart sshd
+...
