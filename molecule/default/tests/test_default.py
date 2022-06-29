@@ -12,11 +12,6 @@ motd_file_path = "/usr/local/bin/dynmotd"
 pam_line = f"session optional pam_exec.so type=open_session stdout {motd_file_path}"
 
 
-def test_banner_file(host):
-    file = host.file("/etc/banner")
-    assert not file.exists
-
-
 def test_motd_file(host):
     file = host.file(motd_file_path)
     assert file.exists

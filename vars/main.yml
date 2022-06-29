@@ -2,10 +2,6 @@
 _motd_sshd_config_file_path: /etc/ssh/sshd_config
 _motd_pam_login_file_path: /etc/pam.d/login
 _motd_pam_sshd_file_path: /etc/pam.d/sshd
-_motd_banner_file_path: /etc/banner
-_motd_banner_state: "{{ 'present' if motd_banner_template else 'absent' }}"
 _motd_file_path: /usr/local/bin/dynmotd
 _motd_lookup_method: "{{ 'url' if motd_template is match('http(s)?:\/\/') else 'template' }}"
 _motd_template_content: "{{ lookup(_motd_lookup_method, motd_template, split_lines=False, username=motd_template_username, password=motd_template_password) }}"
-_motd_banner_lookup_method: "{{ 'url' if motd_banner_template is match('http(s)?:\/\/') else 'template' }}"
-_motd_banner_template_content: "{{ lookup(_motd_banner_lookup_method, motd_banner_template, split_lines=False, username=motd_banner_template_username, password=motd_banner_template_password) }}"

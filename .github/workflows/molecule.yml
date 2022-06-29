@@ -30,8 +30,8 @@ jobs:
         config:
           - image: "amazonlinux"
             tag: "latest"
-          - image: "centos"
-            tag: "8"
+          - image: "fedora"
+            tag: "28"
           - image: "debian"
             tag: "11"
           - image: "debian"
