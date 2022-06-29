@@ -1,9 +1,6 @@
 ---
 motd_disable_default_motd: true
-motd_banner_template: https://raw.githubusercontent.com/claranet/motd/master/banner
 motd_template: https://raw.githubusercontent.com/claranet/motd/master/scripts/00-basic
-motd_banner_template_prepend: ""
-motd_banner_template_append: ""
 motd_template_prepend: ""
 motd_template_append: |
 
@@ -13,5 +10,3 @@ motd_template_append: |
 
 motd_template_username: ""
 motd_template_password: ""
-motd_banner_template_username: "{{ motd_template_username }}"
-motd_banner_template_password: "{{ motd_template_password }}"

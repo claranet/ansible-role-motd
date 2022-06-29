@@ -1,6 +1,4 @@
 ---
-- include_tasks: configure_banner.yml
-
 - name: include_tasks disable_default_motd.yml if motd_disable_default_motd is True
   include_tasks: disable_default_motd.yml
   when: motd_disable_default_motd|bool

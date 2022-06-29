@@ -3,7 +3,6 @@
   hosts: all
   roles:
     - role: claranet.motd
-      motd_banner_template: null
 
   pre_tasks:
     - name: "Update APT cache"
