@@ -1,6 +1,6 @@
 ---
 - name: configure_motd | Apply template {{ motd_template }} on {{ _motd_file_path }}
-  copy:
+  ansible.builtin.copy:
     content: "{{ motd_template_prepend + _motd_template_content + motd_template_append }}"
     dest: "{{ _motd_file_path }}"
     owner: root
@@ -10,7 +10,7 @@
     - molecule-idempotence-notest
 
 - name: configure_motd | Add pam_exec {{ _motd_file_path }} in pam
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ item }}"
     line: session optional pam_exec.so type=open_session stdout {{ _motd_file_path }}
   loop:

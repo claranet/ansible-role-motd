@@ -8,43 +8,75 @@ on:  # yamllint disable-line rule:truthy
   pull_request:
 
 jobs:
+  setup:
+    name: Setup scenarios matrix
+    runs-on: ubuntu-22.04
+    outputs:
+      scenarios: ${{ steps.matrix.outputs.scenarios }}
+    steps:
+      - uses: actions/checkout@v3
+      - id: matrix
+        run: |
+          JSON="["
+
+          for s in $(find molecule -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;); do
+            JSON="${JSON}\"${s}\","
+          done
+
+          JSON="${JSON%?}"
+          JSON="$JSON]"
+
+          echo "::set-output name=scenarios::$(echo $JSON)"
+
   lint:
-    runs-on: ubuntu-20.04
+    name: Lint
+    needs:
+      - setup
+    runs-on: ubuntu-22.04
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: robertdebock/molecule-action@2.6.17
+        uses: robertdebock/molecule-action@4.0.9
         with:
           command: lint
+          scenario: ${{ fromJson(needs.setup.outputs.scenarios)[0] }}
 
   test:
+    name: Scenario "${{ matrix.scenario }}" on ${{ matrix.config.image }}:${{ matrix.config.tag }}
     needs:
       - lint
-    runs-on: ubuntu-20.04
+      - setup
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
+        scenario: ${{ fromJson(needs.setup.outputs.scenarios) }}
         config:
           - image: "amazonlinux"
             tag: "latest"
-          - image: "fedora"
-            tag: "28"
+          - name: "redhat"
+            image: "registry.access.redhat.com/ubi8/ubi"
+            tag: "latest"
           - image: "debian"
             tag: "11"
           - image: "debian"
             tag: "10"
           - image: "ubuntu"
-            tag: "20.04"
+            tag: "22.04"
+
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: robertdebock/molecule-action@2.6.17
+        uses: robertdebock/molecule-action@4.0.9
         with:
           image: ${{ matrix.config.image }}
           tag: ${{ matrix.config.tag }}
+          scenario: ${{ matrix.scenario }}
+        env:
+          name: ${{ matrix.config.name }}

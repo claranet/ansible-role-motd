@@ -6,7 +6,9 @@ driver:
   name: docker
 
 platforms:
-  - name: claranet_motd_${image:-debian}-${tag:-latest}
+  # On "${name:-${image:-debian}", the last brace does not miss, it works like that...
+  # The env var "name" should be used when the image variable refers to a full registry path like registry.access.redhat.com/ubi8/ubi
+  - name: claranet_motd_${name:-${image:-debian}-${tag:-latest}-${scenario:-default}
     image: ${image:-debian}:${tag:-latest}
     privileged: true
     tty: true

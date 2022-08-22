@@ -35,7 +35,7 @@ Ansible:
 
 ## :warning: Requirements
 
-Ansible >= 2.9
+Ansible >= 2.10
 
 ## :zap: Installation
 

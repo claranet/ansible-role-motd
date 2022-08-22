@@ -1,7 +1,8 @@
 ---
-- name: include_tasks disable_default_motd.yml if motd_disable_default_motd is True
-  include_tasks: disable_default_motd.yml
+- name: Include disable_default_motd.yml if motd_disable_default_motd is True
+  ansible.builtin.include_tasks: disable_default_motd.yml
   when: motd_disable_default_motd|bool
 
-- include_tasks: configure_motd.yml
+- name: Include configure_motd.yml
+  ansible.builtin.include_tasks: configure_motd.yml
 ...
