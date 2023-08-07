@@ -38,11 +38,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: "${{ github.repository }}"
-      - name: molecule
-        uses: robertdebock/molecule-action@4.0.9
+      - name: Run ansible lint
+        uses: ansible/ansible-lint-action@main
         with:
-          command: lint
-          scenario: ${{ fromJson(needs.setup.outputs.scenarios)[0] }}
+          path: "."
 
   test:
     name: Scenario "${{ matrix.scenario }}" on ${{ matrix.config.image }}:${{ matrix.config.tag }}
@@ -61,22 +60,25 @@ jobs:
             image: "registry.access.redhat.com/ubi8/ubi"
             tag: "latest"
           - image: "debian"
+            tag: "12"
+          - image: "debian"
             tag: "11"
           - image: "debian"
             tag: "10"
           - image: "ubuntu"
             tag: "22.04"
-
     steps:
       - name: checkout
         uses: actions/checkout@v3
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: robertdebock/molecule-action@4.0.9
+        uses: gofrolist/molecule-action@v2
         with:
+          # molecule_options: --debug
+          molecule_command: test
+          molecule_args: --scenario-name ${{ matrix.scenario }} -d docker
+          molecule_working_dir: "${{ github.repository }}"
+        env:
           image: ${{ matrix.config.image }}
           tag: ${{ matrix.config.tag }}
-          scenario: ${{ matrix.scenario }}
-        env:
-          name: ${{ matrix.config.name }}

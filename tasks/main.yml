@@ -3,7 +3,7 @@
   ansible.builtin.include_tasks: disable_default_motd.yml
   when: motd_disable_default_motd|bool
 
-- name: configure_motd | Apply template {{ motd_template }} on {{ _motd_file_path }}
+- name: "Configure_motd | Apply template {{ motd_template + ' in ' + _motd_file_path }}"
   ansible.builtin.copy:
     content: "{{ motd_template_prepend + _motd_template_content + motd_template_append }}"
     dest: "{{ _motd_file_path }}"
@@ -13,7 +13,7 @@
   tags:
     - molecule-idempotence-notest
 
-- name: configure_motd | Add pam_exec {{ _motd_file_path }} in pam
+- name: Configure_motd | Add in pam pam_exec {{ _motd_file_path }}
   ansible.builtin.lineinfile:
     path: "{{ item }}"
     line: session optional pam_exec.so type=open_session stdout {{ _motd_file_path }}

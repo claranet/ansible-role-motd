@@ -1,13 +1,14 @@
 ---
 dependency:
-  name: galaxy
+  name: shell
+  command: python3 -m pip install pytest-testinfra
 
 driver:
   name: docker
 
 platforms:
   # On "${name:-${image:-debian}", the last brace does not miss, it works like that...
-  # The env var "name" should be used when the image variable refers to a full registry path like registry.access.redhat.com/ubi8/ubi
+  # The env var should be used when the image variable refers to a full registry path like registry.access.redhat.com/ubi8/ubi
   - name: claranet_motd_${name:-${image:-debian}-${tag:-latest}-${scenario:-default}
     image: ${image:-debian}:${tag:-latest}
     privileged: true
@@ -31,8 +32,6 @@ provisioner:
 
 verifier:
   name: testinfra
-  lint:
-    name: flake8
   options:
     verbose: true
     s: true
