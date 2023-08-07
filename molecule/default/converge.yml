@@ -6,11 +6,11 @@
 
   pre_tasks:
     - name: "Update APT cache"
-      apt:
+      ansible.builtin.apt:
         update_cache: true
       when:
         - ansible_pkg_mgr == "apt"
 
     - name: Install sshd
-      package:
+      ansible.builtin.package:
         name: openssh-server
